@@ -18,17 +18,17 @@ export default {
           950: '#2e0a0a',
         },
         secondary: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-          950: '#451a03',
+          50: '#fbf8f0',
+          100: '#f5edd9',
+          200: '#eadbb4',
+          300: '#dcc48a',
+          400: '#cfb175',
+          500: '#c3a160',
+          600: '#a8853f',
+          700: '#876a30',
+          800: '#6b5328',
+          900: '#4f3d1e',
+          950: '#2a2010',
         },
         accent: {
           50: '#ecfdf5',
@@ -63,6 +63,7 @@ export default {
           600: '#dc2626',
           700: '#b91c1c',
         },
+        cream: '#f8f5ec',
         ink: {
           50: '#f8fafc',
           100: '#f1f5f9',
@@ -80,6 +81,7 @@ export default {
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
         display: ['Lexend', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
       },
       keyframes: {
         'fade-up': {

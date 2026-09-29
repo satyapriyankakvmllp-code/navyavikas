@@ -9,6 +9,6 @@ export const brand = {
     'Navya Vikas Public School, Visakhapatnam \u2014 a CBSE co-educational school nurturing academic excellence, character, and holistic growth since 1985.',
   logoText: 'Navya Vikas',
   logoSubtext: 'Public School',
-  logoSrc: '/brand/logo.png',
+  logoSrc: '/brand/emblem.png',
   faviconSrc: '/brand/favicon.png',
 };

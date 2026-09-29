@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight, Phone } from 'lucide-react';
 import { Logo } from './Logo';
 import { Marquee } from '@/components/ui/Marquee';
 import { schoolData } from '@/data/schoolData';
+
+const menuItemStyle = (open: boolean, i: number) => ({
+  opacity: open ? 1 : 0,
+  transform: open ? 'translateX(0)' : 'translateX(24px)',
+  transition: 'opacity 0.35s ease, transform 0.35s ease',
+  transitionDelay: open ? `${120 + i * 45}ms` : '0ms',
+});
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -37,6 +44,20 @@ export function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
+  // Esc closes the menu; leaving mobile size closes it too
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false);
+    const onResize = () => window.innerWidth >= 1024 && setMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
+  const menuLinks = schoolData.navLinks.filter((l) => l.href !== '#admissions');
+
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
     const el = document.querySelector(href);
@@ -62,7 +83,7 @@ export function Navbar() {
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
-          <button onClick={() => handleNavClick('#home')}>
+          <button onClick={() => handleNavClick('#home')} aria-label="Go to top">
             <Logo />
           </button>
 
@@ -72,7 +93,7 @@ export function Navbar() {
               <li key={link.href}>
                 <button
                   onClick={() => handleNavClick(link.href)}
-                  className={`relative px-4 py-2 text-[15px] font-semibold transition-colors duration-200 ${
+                  className={`relative px-3 py-2 text-[15px] xl:px-4 font-semibold transition-colors duration-200 ${
                     activeSection === link.href ? 'text-primary-800' : 'text-ink-600 hover:text-primary-800'
                   }`}
                 >
@@ -90,73 +111,105 @@ export function Navbar() {
           <div className="hidden lg:block">
             <button
               onClick={() => handleNavClick('#admissions')}
-              className="group inline-flex items-center gap-2 rounded-xl bg-primary-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary-700/20 transition-all duration-300 hover:bg-primary-800 hover:shadow-xl hover:shadow-primary-700/30 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-xl bg-primary-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-primary-700/20 transition-all duration-300 hover:bg-primary-800 hover:shadow-xl hover:shadow-primary-700/30 hover:-translate-y-0.5"
             >
-              Apply Now
+              Admissions 2027&ndash;28
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-xl text-ink-800 transition-colors hover:bg-primary-50 active:bg-primary-100 lg:hidden"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
-            <div className="relative h-6 w-6">
-              <Menu className={`absolute inset-0 h-6 w-6 text-ink-800 transition-all duration-300 ${menuOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`} />
-              <X className={`absolute inset-0 h-6 w-6 text-ink-800 transition-all duration-300 ${menuOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'}`} />
-            </div>
+            <Menu className="h-6 w-6" />
           </button>
         </nav>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu: slide-in panel */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
-          menuOpen ? 'visible opacity-100' : 'invisible opacity-0'
-        }`}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        className={`fixed inset-0 z-[60] lg:hidden ${menuOpen ? 'visible' : 'invisible delay-300'}`}
       >
-        <div className="absolute inset-0 bg-ink-950/50 backdrop-blur-sm" onClick={() => setMenuOpen(false)} />
         <div
-          className={`absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transition-transform duration-300 ${
+          className={`absolute inset-0 bg-ink-950/60 backdrop-blur-sm transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
+          onClick={() => setMenuOpen(false)}
+        />
+        <aside
+          className={`absolute right-0 top-0 flex h-full w-[88vw] max-w-sm flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
             menuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="flex items-center justify-between border-b border-ink-100 px-6 py-4">
+          <div className="flex items-center justify-between border-b border-ink-100 px-5 py-3.5">
             <Logo />
-            <button onClick={() => setMenuOpen(false)} aria-label="Close menu">
-              <X className="h-6 w-6 text-ink-600" />
+            <button
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="-mr-2 flex h-11 w-11 items-center justify-center rounded-xl text-ink-600 transition-colors hover:bg-ink-100"
+            >
+              <X className="h-6 w-6" />
             </button>
           </div>
-          <ul className="flex flex-col px-4 py-4">
-            {schoolData.navLinks.map((link, i) => (
-              <li key={link.href}>
-                <button
-                  onClick={() => handleNavClick(link.href)}
-                  className="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-base font-semibold text-ink-700 transition-colors hover:bg-primary-50 hover:text-primary-800"
-                  style={{ animationDelay: `${i * 50}ms` }}
-                >
-                  {link.label}
-                  <ChevronDown className="h-4 w-4 -rotate-90 text-ink-400" />
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="px-6 pt-2">
+
+          <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-5">
+            {/* Admissions: always first and clearly visible */}
             <button
               onClick={() => handleNavClick('#admissions')}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-primary-700/20 transition-all hover:bg-primary-800"
+              className="group relative flex w-full items-center justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-5 text-left text-white shadow-lg shadow-primary-900/25"
+              style={menuItemStyle(menuOpen, 0)}
             >
-              Apply Now
-              <ArrowRight className="h-4 w-4" />
+              <span>
+                <span className="block text-xs font-semibold text-secondary-300">Now open</span>
+                <span className="mt-0.5 block font-display text-xl font-extrabold leading-tight">Admissions 2027&ndash;2028</span>
+                <span className="mt-1 block text-sm text-primary-100">Nursery to Grade 12</span>
+              </span>
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/15 transition-transform group-active:translate-x-1">
+                <ArrowRight className="h-5 w-5" />
+              </span>
             </button>
+
+            <ul className="mt-4 flex flex-col gap-1">
+              {menuLinks.map((link, i) => {
+                const active = activeSection === link.href;
+                return (
+                  <li key={link.href} style={menuItemStyle(menuOpen, i + 1)}>
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className={`flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left text-base font-semibold transition-colors ${
+                        active ? 'bg-primary-50 text-primary-800' : 'text-ink-700 hover:bg-ink-50 active:bg-primary-50'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <span className={`h-5 w-1 rounded-full ${active ? 'bg-primary-700' : 'bg-transparent'}`} />
+                        {link.label}
+                      </span>
+                      <ChevronDown className="h-4 w-4 -rotate-90 text-ink-400" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          <div className="mt-auto px-6 py-6">
-            <p className="text-sm text-ink-500">{schoolData.contact.address}</p>
-            <a href={`tel:${schoolData.contact.phone.replace(/\s/g, '')}`} className="mt-2 block text-sm font-semibold text-primary-700">{schoolData.contact.phone}</a>
+
+          <div className="border-t border-ink-100 bg-ink-50 px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <a
+              href={`tel:${schoolData.contact.phone.replace(/\s/g, '')}`}
+              className="flex items-center gap-2 text-sm font-semibold text-primary-700"
+            >
+              <Phone className="h-4 w-4" />
+              {schoolData.contact.phone}
+            </a>
+            <p className="mt-2 text-xs leading-relaxed text-ink-500">{schoolData.contact.address}</p>
           </div>
-        </div>
+        </aside>
       </div>
     </>
   );

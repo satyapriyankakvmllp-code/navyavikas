@@ -16,17 +16,26 @@ export function CountUp({ value, duration = 2000 }: { value: string; duration?: 
       setInView(true);
       return;
     }
+    let seen = false;
+    const go = () => {
+      if (seen && !document.documentElement.classList.contains('splash-active')) setInView(true);
+    };
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
-          setInView(true);
+          seen = true;
+          go();
           io.disconnect();
         }
       },
       { threshold: 0.3 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    window.addEventListener('splash:done', go);
+    return () => {
+      io.disconnect();
+      window.removeEventListener('splash:done', go);
+    };
   }, []);
 
   if (!m) return <span>{value}</span>;

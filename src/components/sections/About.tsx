@@ -23,14 +23,7 @@ export function About() {
               <img
                 src={schoolData.aboutImage}
                 alt={schoolData.aboutImageAlt}
-                className="aspect-[16/10] w-full object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-4 hidden w-48 overflow-hidden rounded-xl border-4 border-white shadow-2xl sm:block">
-              <img
-                src="https://images.pexels.com/photos/18012463/pexels-photo-18012463.jpeg?auto=compress&cs=tinysrgb&w=400&h=300"
-                alt="Indian school boys studying"
-                className="aspect-square w-full object-cover"
+                className="aspect-[4/3] w-full object-cover object-[50%_18%] transition-transform duration-700 hover:scale-105"
               />
             </div>
             {/* Est badge */}

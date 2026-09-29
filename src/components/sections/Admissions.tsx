@@ -92,7 +92,7 @@ export function Admissions() {
           {/* Left: info + steps */}
           <div>
             <div className="reveal">
-              <SectionLabel>Admissions Open 2026&ndash;27</SectionLabel>
+              <SectionLabel>Admissions 2027&ndash;2028</SectionLabel>
               <h2 className="mt-3 font-display text-2xl font-extrabold text-ink-900 sm:text-3xl text-balance">
                 <SplitWords text={schoolData.admissionsTitle} />
               </h2>

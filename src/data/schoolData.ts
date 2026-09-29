@@ -17,6 +17,7 @@ export interface AcademicProgram {
 
 export interface Facility {
   icon: string;
+  image: string;
   title: string;
   description: string;
 }
@@ -70,8 +71,8 @@ export const schoolData = {
   heroTitle: 'Shaping Tomorrow\u2019s Leaders Today',
   heroSubtitle:
     'A premier CBSE co-educational school in Visakhapatnam dedicated to academic excellence, character building, and holistic development of every child.',
-  heroImage: 'https://images.pexels.com/photos/3231359/pexels-photo-3231359.jpeg?auto=compress&cs=tinysrgb&w=1260&h=850',
-  heroImageAlt: 'Indian school students in classroom',
+  heroImage: '/images/hero-students.jpg',
+  heroImageAlt: 'Smiling school students standing together',
 
   aboutSectionLabel: 'ABOUT OUR SCHOOL',
   aboutTitle: 'A Legacy of Learning & Character Since 1985',
@@ -79,8 +80,8 @@ export const schoolData = {
     'Founded in 1985, Navya Vikas brings academic rigour and human values together. Today we serve over 2,800 students, blending strong CBSE academics with arts, sports and life skills.',
   aboutText2:
     'Our approach blends a strong CBSE curriculum with arts, sports, and life-skill education. We believe every child is unique, and our dedicated educators work to unlock each student\u2019s full potential in a safe, joyful, and inclusive environment.',
-  aboutImage: 'https://images.pexels.com/photos/18012457/pexels-photo-18012457.jpeg?auto=compress&cs=tinysrgb&w=900&h=700',
-  aboutImageAlt: 'Indian school children in classroom',
+  aboutImage: '/images/about-students.jpg',
+  aboutImageAlt: 'Two happy students in front of the school bus',
 
   stats: [
     { value: '2,800+', label: 'Students Enrolled' },
@@ -141,12 +142,18 @@ export const schoolData = {
   facilitiesTitle: 'World-Class Facilities',
   facilitiesSubtitle: 'A 5-acre campus in MVP Colony designed for learning, exploration, and play.',
   facilities: [
-    { icon: 'FlaskConical', title: 'Science & Robotics Labs', description: 'Fully-equipped physics, chemistry, biology, and robotics laboratories.' },
-    { icon: 'Library', title: 'Digital Library', description: '25,000+ books, e-resources, and a dedicated reading lounge for all ages.' },
-    { icon: 'Laptop', title: 'Smart Classrooms', description: 'Interactive digital boards and blended-learning tools in every classroom.' },
-    { icon: 'Trophy', title: 'Sports Complex', description: 'Cricket, football, basketball, athletics track, and indoor games arena.' },
-    { icon: 'Palette', title: 'Arts & Music Studio', description: 'Dedicated spaces for painting, classical music, dance, and theatre.' },
-    { icon: 'Bus', title: 'Safe Transport', description: 'GPS-enabled buses covering 30+ routes across Visakhapatnam with trained staff.' },
+    { icon: 'FlaskConical', title: 'Science & Robotics Labs',
+      image: 'https://images.pexels.com/photos/31864392/pexels-photo-31864392.jpeg?auto=compress&cs=tinysrgb&w=800&h=600', description: 'Fully-equipped physics, chemistry, biology, and robotics laboratories.' },
+    { icon: 'Library', title: 'Digital Library',
+      image: 'https://images.pexels.com/photos/10638213/pexels-photo-10638213.jpeg?auto=compress&cs=tinysrgb&w=800&h=600', description: '25,000+ books, e-resources, and a dedicated reading lounge for all ages.' },
+    { icon: 'Laptop', title: 'Smart Classrooms',
+      image: 'https://images.pexels.com/photos/5636692/pexels-photo-5636692.jpeg?auto=compress&cs=tinysrgb&w=800&h=600', description: 'Interactive digital boards and blended-learning tools in every classroom.' },
+    { icon: 'Trophy', title: 'Sports Complex',
+      image: 'https://images.pexels.com/photos/27907317/pexels-photo-27907317.jpeg?auto=compress&cs=tinysrgb&w=800&h=600', description: 'Cricket, football, basketball, athletics track, and indoor games arena.' },
+    { icon: 'Palette', title: 'Arts & Music Studio',
+      image: 'https://images.pexels.com/photos/29329505/pexels-photo-29329505.jpeg?auto=compress&cs=tinysrgb&w=800&h=600', description: 'Dedicated spaces for painting, classical music, dance, and theatre.' },
+    { icon: 'Bus', title: 'Safe Transport',
+      image: '/images/about-students.jpg', description: 'GPS-enabled buses covering 30+ routes across Visakhapatnam with trained staff.' },
   ] as Facility[],
 
   activitiesTitle: 'Life Beyond the Classroom',
@@ -246,7 +253,7 @@ export const schoolData = {
 
   admissionsTitle: 'Begin Your Child\u2019s Journey',
   admissionsSubtitle:
-    'Admissions are open for the 2026\u201327 academic year. Submit the enquiry form below and our admissions team will contact you within 48 hours.',
+    'Admissions are open for the 2027\u20132028 academic year. Submit the enquiry form below and our admissions team will contact you within 48 hours.',
   admissionSteps: [
     { step: '01', title: 'Submit Enquiry', description: 'Fill out the enquiry form with your details.' },
     { step: '02', title: 'Campus Visit', description: 'Tour our campus and meet our faculty.' },

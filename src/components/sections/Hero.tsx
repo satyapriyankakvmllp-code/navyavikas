@@ -1,4 +1,4 @@
-import { ArrowRight, Play, Sparkles, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import { schoolData } from '@/data/schoolData';
 import { useParallax } from '@/hooks/useParallax';
 import { SplitWords } from '@/components/ui/SplitWords';
@@ -6,126 +6,98 @@ import { CountUp } from '@/components/ui/CountUp';
 
 export function Hero() {
   const ref = useParallax<HTMLElement>();
-  const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (href: string) => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" ref={ref} className="relative overflow-hidden bg-ink-950">
-      {/* Background image */}
+    <section id="home" ref={ref} className="relative overflow-hidden bg-cream">
+      {/* soft gold glow, moves slower than the page */}
       <div
-        className="absolute inset-0"
-        style={{ transform: 'translate3d(0, calc(var(--py, 0) * 0.3px), 0) scale(1.15)', willChange: 'transform' }}
-      >
-        <img
-          src={schoolData.heroImage}
-          alt={schoolData.heroImageAlt}
-          className="h-full w-full object-cover opacity-40"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-950/90 via-primary-900/80 to-ink-950/95" />
-        <div className="absolute inset-0 bg-grid opacity-20" />
-      </div>
+        className="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] rounded-full bg-secondary-200/60 blur-3xl sm:h-[560px] sm:w-[560px]"
+        style={{ transform: 'translate3d(0, calc(var(--py, 0) * 0.2px), 0)' }}
+      />
 
-      {/* Decorative floating shapes */}
-      <div className="pointer-events-none absolute -left-20 top-32" style={{ transform: 'translate3d(0, calc(var(--py, 0) * -0.2px), 0)' }}>
-        <div className="h-64 w-64 rounded-full bg-primary-500/20 blur-3xl animate-float" />
-      </div>
-      <div className="pointer-events-none absolute right-10 bottom-16" style={{ transform: 'translate3d(0, calc(var(--py, 0) * -0.35px), 0)' }}>
-        <div className="h-80 w-80 rounded-full bg-secondary-500/10 blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-      </div>
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pb-12 pt-10 lg:grid-cols-12 lg:gap-6 lg:pb-16 lg:pt-14">
+        {/* Words */}
+        <div className="lg:col-span-7">
+          <p className="animate-fade-down text-sm font-semibold text-primary-700 sm:text-base">
+            {schoolData.affiliation.replace(' • ', ', ')} school in Visakhapatnam
+          </p>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20 lg:py-24">
-        <div className="grid items-center gap-10 lg:grid-cols-12">
-          {/* Left content */}
-          <div className="lg:col-span-7">
-            <div className="animate-fade-down inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
-              <Sparkles className="h-4 w-4 text-secondary-400" />
-              {schoolData.tagline}
-            </div>
+          <h1 className="hero-words mt-4 font-serif text-[2.6rem] font-bold leading-[1.05] text-primary-900 sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+            <SplitWords text={schoolData.heroTitle} />
+          </h1>
 
-            <h1 className="hero-words mt-5 font-display text-3xl font-extrabold leading-[1.15] text-white sm:text-4xl lg:text-5xl text-balance" >
-              <SplitWords text={schoolData.heroTitle} />
-            </h1>
+          <p
+            className="animate-fade-up mt-6 max-w-xl text-base leading-relaxed text-ink-600 sm:text-lg"
+            style={{ animationDelay: '0.9s' }}
+          >
+            {schoolData.heroSubtitle}
+          </p>
 
-            <p className="animate-fade-up mt-5 max-w-xl text-base leading-relaxed text-ink-200 sm:text-lg" style={{ animationDelay: '0.2s' }}>
-              {schoolData.heroSubtitle}
-            </p>
-
-            <div className="animate-fade-up mt-7 flex flex-wrap items-center gap-4" style={{ animationDelay: '0.3s' }}>
-              <button
-                onClick={() => scrollTo('#admissions')}
-                className="group inline-flex items-center gap-2 rounded-xl bg-secondary-500 px-6 py-3.5 text-base font-bold text-ink-900 shadow-xl shadow-secondary-500/20 transition-all duration-300 hover:bg-secondary-400 hover:shadow-2xl hover:-translate-y-0.5"
-              >
-                Enroll Now
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </button>
-              <button
-                onClick={() => scrollTo('#about')}
-                className="group inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-6 py-3.5 text-base font-bold text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white/10"
-              >
-                <Play className="h-4 w-4 fill-current" />
-                Discover More
-              </button>
-            </div>
-
-            <div className="animate-fade-up mt-8 flex items-center gap-6 text-sm text-ink-300" style={{ animationDelay: '0.4s' }}>
-              <span className="font-semibold text-secondary-400">{schoolData.established}</span>
-              <span className="h-4 w-px bg-ink-600" />
-              <span>{schoolData.affiliation}</span>
-            </div>
-          </div>
-
-          {/* Right floating card */}
-          <div className="lg:col-span-5" style={{ transform: 'translate3d(0, calc(var(--py, 0) * 0.08px), 0)' }}>
-            <div className="animate-scale-in" style={{ animationDelay: '0.3s' }}>
-            <div className="relative">
-              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary-500/30 to-secondary-500/20 blur-2xl" />
-              <div className="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
-                <img
-                  src={schoolData.aboutImage}
-                  alt={schoolData.aboutImageAlt}
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex items-center gap-2 rounded-xl bg-white/95 px-4 py-3 backdrop-blur-md">
-                    <MapPin className="h-5 w-5 text-primary-700" />
-                    <div>
-                      <p className="text-xs font-semibold text-ink-500">Visakhapatnam, Andhra Pradesh</p>
-                      <p className="text-sm font-bold text-ink-900">5-Acre Green Campus</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -right-3 -top-3 flex h-18 w-18 animate-float items-center justify-center rounded-2xl bg-secondary-500 text-center shadow-xl" style={{ width: '4.5rem', height: '4.5rem' }}>
-                <div>
-                  <p className="font-display text-xl font-extrabold leading-none text-ink-900">40</p>
-                  <p className="text-[10px] font-bold uppercase text-ink-700">Years</p>
-                </div>
-              </div>
-            </div>
-            </div>
+          <div className="animate-fade-up mt-8 flex flex-wrap items-center gap-3 sm:gap-4" style={{ animationDelay: '1.05s' }}>
+            <button
+              onClick={() => scrollTo('#admissions')}
+              className="group inline-flex items-center gap-2 rounded-full bg-primary-900 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-primary-900/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-800 active:-translate-y-0.5"
+            >
+              Enroll now
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button
+              onClick={() => scrollTo('#about')}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-primary-900/20 px-7 py-3.5 text-base font-bold text-primary-900 transition-all duration-300 hover:border-primary-900 hover:bg-primary-900/5"
+            >
+              Discover more
+            </button>
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div className="animate-fade-up mt-12 grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md sm:grid-cols-4 lg:mt-16" style={{ animationDelay: '0.5s' }}>
-          {schoolData.stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-display text-2xl font-extrabold text-white sm:text-3xl"><CountUp value={stat.value} /></p>
-              <p className="mt-1 text-xs font-medium text-ink-300 sm:text-sm">{stat.label}</p>
+        {/* Arch photo */}
+        <div className="lg:col-span-5" style={{ transform: 'translate3d(0, calc(var(--py, 0) * -0.05px), 0)' }}>
+          <div className="relative mx-auto aspect-[400/480] w-full max-w-[380px] sm:max-w-[420px]">
+            {/* offset gold outline behind the photo */}
+            <div
+              className="animate-fade-in absolute rounded-t-[999px] rounded-b-3xl border-2 border-secondary-500/70"
+              style={{ left: '30%', right: '0%', top: '11%', bottom: '1%', animationDelay: '0.5s' }}
+            />
+            <div
+              className="animate-scale-in absolute overflow-hidden rounded-t-[999px] rounded-b-3xl bg-primary-100 shadow-2xl shadow-primary-900/20"
+              style={{ left: '26%', right: '4%', top: '14%', bottom: '4%', animationDelay: '0.2s' }}
+            >
+              <img
+                src={schoolData.heroImage}
+                alt={schoolData.heroImageAlt}
+                className="h-full w-full object-cover object-[62%_center]"
+                loading="eager"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-950/80 to-transparent px-3 pb-3 pt-10">
+                <div className="flex items-center gap-2 text-white">
+                  <MapPin className="h-4 w-4 flex-shrink-0 text-secondary-400" />
+                  <p className="text-[11px] font-semibold leading-tight sm:text-xs">
+                    5-Acre Green Campus
+                    <span className="block font-normal text-white/80">Visakhapatnam, Andhra Pradesh</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Numbers strip */}
+      <div className="relative bg-primary-900">
+        <div
+          className="animate-fade-up mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-6 py-7 sm:grid-cols-4 sm:py-8"
+          style={{ animationDelay: '1.2s' }}
+        >
+          {schoolData.stats.map((stat, i) => (
+            <div key={stat.label} className={`text-center ${i > 0 ? 'sm:border-l sm:border-white/15' : ''}`}>
+              <p className="font-serif text-3xl font-bold text-secondary-400 sm:text-4xl">
+                <CountUp value={stat.value} duration={2400} />
+              </p>
+              <p className="mt-1 text-xs font-medium text-primary-200 sm:text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Bottom wave */}
-      <div className="relative">
-        <svg viewBox="0 0 1440 60" className="block w-full" preserveAspectRatio="none" fill="white">
-          <path d="M0,60 L1440,60 L1440,20 Q720,60 0,20 Z" />
-        </svg>
       </div>
     </section>
   );

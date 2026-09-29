@@ -29,7 +29,7 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Logo variant="light" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-400">
-              {schoolData.tagline}. A premier CBSE co-educational school in Bengaluru, nurturing academic excellence and character since 1985.
+              {schoolData.tagline}. A premier CBSE co-educational school in Visakhapatnam, nurturing academic excellence and character since 1985.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {contact.social.map((social) => {

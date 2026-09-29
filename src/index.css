@@ -115,7 +115,7 @@
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 3px;
-  background: linear-gradient(90deg, #8b2828, #fcd34d);
+  background: linear-gradient(90deg, #8b2828, #c3a160);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
